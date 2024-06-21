@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-sizing: border-box;
+    }
+    body{
+        background: #262a2f;
+    }
+    .container{
+        width: 400px;
+        background: #fff;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 30px;
+    }
+    .container p{
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .container input{
+      width: 100%;  
+      height: 50px;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .container button{
+        width: 100%;
+        height: 50px;
+        box-shadow: 5px 5px 10px rgba(0,0,0,0.7);
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 10px 0;
+        color: #fff;;
+        background: #494eea;
+        border-radius: 5px;
+    }
+    #imgBox{
+        max-height: 0
+        
+    }
+    #imgBox.display{
+        max-height: 500px;
+        width: 70%;
+        border-radius: 5px;
+        margin: 10px auto;
+        border: 1px solid blue;
+        overflow: hidden;
+        transition: max-height 2s;
+    }
+    #imgBox img{
+        width: 100%;
+        padding: 10px;
+    }
+    .error{
+        animation: wrong 0.5s linear 6;
+    }
+    @keyframes wrong{
+        25%{transform: translateX(5px);}
+        75%{transform: translateX(0px);}
+    }
+
+
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <p>Enter your text or URL</p>
+        <input type="text" id="qrText" placeholder="Text or URL">
+        <div id="imgBox"><img src="" id="qrImage"></div>
+        <button id="button">Generate QR Code</button>
+    </div>
+<script>
+const qrText = document.getElementById("qrText");
+const imgBox = document.getElementById("imgBox");
+const qrImage = document.getElementById("qrImage");
+const button = document.getElementById("button");
+button.addEventListener("click", generateQR)
+
+// https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=
+
+function generateQR(){
+    if(qrText.value.length>0){
+        qrImage.src = " https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + qrText.value;
+        imgBox.classList.add("display")
+    } else {
+        qrText.classList.add("error")
+        setTimeout(()=>{
+            qrText.classList.remove("error")
+        },1000)
+    }
+
+
+}
+
+</script>
+</body>
+</html>
